@@ -9,24 +9,24 @@
 <expr1>           ::=  <expr2> '?' <expr1> ':' <expr1>
 <expr2>           ::=  <expr3> '||' <expr3>
 <expr3>           ::=  <expr4> '&&' <expr4>
-<expr4>           ::=  (<expr5> <eqop> <expr5>) / (<expr5> <isop> <expr5>)
+<expr4>           ::=  (<expr5> <eqop> <expr5>) | (<expr5> <isop> <expr5>)
 <expr5>           ::=  <expr5> <addop> <expr6>
 <expr6>           ::=  <expr7> <mulop> <expr7>
 <expr7>           ::=  <unop> <expr8>
-<expr8>           ::=  (<expr9> '[' (<exprange> / <expr1>) ']') / (<expr9> '.' <ident>) / (<expr9> '(' <exprlist> ')' / <expr7>
-<expr9>           ::=  <number> / <string> / <list> / <dict> / <optval> / <nestedexpr> / <envvar> / <regval> / <funccall> / <bracedfunccall> / <ident> / <bracedident>
+<expr8>           ::=  (<expr9> '[' (<exprange> | <expr1>) ']') | (<expr9> '.' <ident>) | (<expr9> '(' <exprlist> ')' | <expr7>
+<expr9>           ::=  <number> | <string> | <list> | <dict> | <optval> | <nestedexpr> | <envvar> | <regval> | <funccall> | <bracedfunccall> | <ident> | <bracedident>
 
-<eqop>            ::=  ('==' / '!=' / '>=' / '>' / '<=' / '<' / '=~' / '!~') ('?' / '#')?
+<eqop>            ::=  ('==' | '!=' | '>=' | '>' | '<=' | '<' | '=~' | '!~') ('?' | '#')?
 <isop>            ::=  'is' 'not'?
-<addop>           ::=  '+' / '-' / '.'
-<mulop>           ::=  '*' / '/' / '%'
-<unop>            ::=  '!' / '-' / '+'
+<addop>           ::=  '+' | '-' | '.'
+<mulop>           ::=  '*' | '/' | '%'
+<unop>            ::=  '!' | '-' | '+'
 <exprange>        ::=  <expr1> ':' <expr1>
 
 <number>          ::=  '[-+]\?\d*\.\?\d\+\%([eE][-+]\?\d\+\)\?'
-<sqstr>           ::=  "'" "'"! '.'* "'"
-<dqstr>           ::=  '"' '"'! '.'* '"'
-<string>          ::=  <sqstr> / <dqstr>
+<sqstr>           ::=  "'\\%(''\\|[^']\\)*'" ; "'" "'"! '.'* "'"
+<dqstr>           ::=  '"\%(\\\\\|\\"\|[^"]\)"' ; '"' '"'! '.'* '"'
+<string>          ::=  <sqstr> | <dqstr>
 <list>            ::=  '[' <exprlist> ']'
 <exprlist>        ::=  (<expr1> (',' <expr1>)*)?
 <dict>            ::=  '{' (<dictpair> (',' <dictpair>)*)? '}'
@@ -37,7 +37,7 @@
 <nestedexpr>      ::=  '(' <expr1> ')'
 
 <ident>           ::=  '\h\w*'
-<bracedident>     ::=  '\h\w*{\w*}\w*'
+<bracedident>     ::=  <ident>? '{' <ident> '}\w*'
 <envvar>          ::=  '$[A-Z]\+'
 <regval>          ::=  '@[a-z0-9_/.+*"'']'
 
