@@ -6,42 +6,42 @@
 .parser_name = 'viml#parser'
 .root_element = 'viml'
 
-<expr1>           ::=  <expr2> '?' <expr1> ':' <expr1>
-<expr2>           ::=  <expr3> '||' <expr3>
-<expr3>           ::=  <expr4> '&&' <expr4>
-<expr4>           ::=  (<expr5> <eqop> <expr5>) | (<expr5> <isop> <expr5>)
-<expr5>           ::=  <expr5> <addop> <expr6>
-<expr6>           ::=  <expr7> <mulop> <expr7>
-<expr7>           ::=  <unop> <expr7> | <expr8>
-<expr8>           ::=  (<ident> '[' (<exprange> | <expr1>) ']') | (<ident> '.' <expr8>) | <expr9>
-<expr9>           ::=  <number> | <string> | <list> | <dict> | <optval> | <nestedexpr> | <envvar> | <regval> | <funccall> | <ident>
+expr1           ::=  expr2 '?' expr1 ':' expr1
+expr2           ::=  expr3 '||' expr3
+expr3           ::=  expr4 '&&' expr4
+expr4           ::=  (expr5 eqop expr5) | (expr5 isop expr5)
+expr5           ::=  expr5 addop expr6
+expr6           ::=  expr7 mulop expr7
+expr7           ::=  unop expr7 | expr8
+expr8           ::=  (ident '[' (exprange | expr1) ']') | (ident '.' expr8) | expr9
+expr9           ::=  number | string | list | dict | optval | nestedexpr | envvar | regval | funccall | ident
 
-<eqop>            ::=  ('==' | '!=' | '>=' | '>' | '<=' | '<' | '=~' | '!~') ('?' | '#')?
-<isop>            ::=  'is' 'not'?
-<addop>           ::=  '+' | '-' | '.'
-<mulop>           ::=  '*' | '/' | '%'
-<unop>            ::=  '!' | '-' | '+'
-<exprange>        ::=  <expr1> ':' <expr1>
+eqop            ::=  ('==' | '!=' | '>=' | '>' | '<=' | '<' | '=~' | '!~') ('?' | '#')?
+isop            ::=  'is' 'not'?
+addop           ::=  '+' | '-' | '.'
+mulop           ::=  '*' | '/' | '%'
+unop            ::=  '!' | '-' | '+'
+exprange        ::=  expr1 ':' expr1
 
-<number>          ::=  '[-+]\?\d*\.\?\d\+\%([eE][-+]\?\d\+\)\?'
-<sqstr>           ::=  "'" ("''" | !"'" '.')* "'"
-<dqstr>           ::=  '"' ( '\\\\' | '\\"' | !'"' '.')* '"'
-<string>          ::=  <sqstr> | <dqstr>
-<list>            ::=  '[' <exprlist> ']'
-<exprlist>        ::=  (<expr1> (',' <expr1>)*)?
-<dict>            ::=  '{' (<dictpair> (',' <dictpair>)*)? '}'
-<dictpair>        ::=  <expr1> ':' <expr1>
+number          ::=  '[-+]\?\d*\.\?\d\+\%([eE][-+]\?\d\+\)\?'
+sqstr           ::=  "'" ("''" | !"'" '.')* "'"
+dqstr           ::=  '"' ( '\\\\' | '\\"' | !'"' '.')* '"'
+string          ::=  sqstr | dqstr
+list            ::=  '[' exprlist ']'
+exprlist        ::=  (expr1 (',' expr1)*)?
+dict            ::=  '{' (dictpair (',' dictpair)*)? '}'
+dictpair        ::=  expr1 ':' expr1
 
-<optval>          ::=  '&' <ident>
+optval          ::=  '&' ident
 
-<nestedexpr>      ::=  '(' <expr1> ')'
+nestedexpr      ::=  '(' expr1 ')'
 
-<bareident>       ::=  '\h\w*'
-<bracedident>     ::=  <ident>? '{' <ident> '}\w*'
-<ident>           ::=  <bareident> | <bracedident>
-<envvar>          ::=  '$[A-Z]\+'
-<regval>          ::=  '@[a-z0-9_/.+*"'']'
+bareident       ::=  '\h\w*'
+bracedident     ::=  ident? '{' ident '}\w*'
+ident           ::=  bareident | bracedident
+envvar          ::=  '$[A-Z]\+'
+regval          ::=  '@[a-z0-9_/.+*"'']'
 
-<barefunccall>    ::=  <ident> '(' <exprlist> ')'
-<bracedfunccall>  ::=  <bracedident> '(' <exprlist> ')'
-<funccall>        ::=  <barefunccall> | <bracedfunccall>
+barefunccall    ::=  ident '(' exprlist ')'
+bracedfunccall  ::=  bracedident '(' exprlist ')'
+funccall        ::=  barefunccall | bracedfunccall
