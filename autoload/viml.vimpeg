@@ -13,8 +13,10 @@ expr4           ::=  (expr5 eqop expr5) | (expr5 isop expr5)
 expr5           ::=  expr6 addop expr6
 expr6           ::=  expr7 mulop expr7
 expr7           ::=  unop* expr8
-expr8           ::=  number | string | optval | envvar | regval | expr9
-expr9           ::=  ident ('.' expr9)? | (ident '[' exprange ']' | list | dict | nestedexpr | funccall) expr9?
+expr8           ::=  number | string | optval | envvar | regval | list | dict | nestedexpr | expr9
+expr9           ::=  (ident '[' exprange ']')? expr10
+expr10          ::=  (listref | dictref | ((ident | funccall) ('.' expr9))) expr10?
+listref         ::=  '[' (exprange | expr1) ']'
 
 eqop            ::=  ('==' | '!=' | '>=' | '>' | '<=' | '<' | '=~' | '!~') ('?' | '#')?
 isop            ::=  'is' 'not'?
@@ -42,6 +44,9 @@ ident           ::=  bareident | bracedident
 envvar          ::=  '$[A-Z]\+'
 regval          ::=  '@[a-z0-9_/.+*"'']'
 
-barefunccall    ::=  ident '(' exprlist ')'
-bracedfunccall  ::=  bracedident '(' exprlist ')'
+namespace       ::=  ident '#'
+funcident       ::=  '[bstw]:\w\+' | '[A-Z]\w\+' | namespace funcident
+bracedfuncident ::=  funcident? '{' ident '}\w*'
+barefunccall    ::=  funcident '(' exprlist ')'
+bracedfunccall  ::=  bracedfuncident '(' exprlist ')'
 funccall        ::=  barefunccall | bracedfunccall
