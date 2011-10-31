@@ -1,9 +1,9 @@
 
-testname: /mnt/home_folders/arthurb/projects/vim/plugins/vimpeg-parser-viml/test/test_00_Expr_1
-testfunc: TestExpr
-</arthurb/projects/vim/plugins/vimpeg-parser-viml/test/test_00_Expr_1.in" 
-<projects/vim/plugins/vimpeg-parser-viml/test/test_00_Expr_1.in" 12L, 111C
-%s/.*/\=TestExpr(submatch(0))/
+testname: test_00_expr1_1
+testexpr: expr1
+"test_00_expr1_1.in" 
+"test_00_expr1_1.in" 12L, 111C
+%s/.*/\=string(g:viml#parser.GetSym(testexpr).match(submatch(0))['is_matched'])/
 peg.Expression: {'str': '1', 'pos': 0} '!'
 peg.Expression: {'str': '1', 'pos': 0} '-'
 peg.Expression: {'str': '1', 'pos': 0} '+'
@@ -743,5 +743,5 @@ peg.Expression: {'str': 'somelist[0][0]', 'pos': 14} '&&'
 peg.Expression: {'str': 'somelist[0][0]', 'pos': 14} '||'
 peg.Expression: {'str': 'somelist[0][0]', 'pos': 14} '?'
 12 substitutions on 12 lines
-<arthurb/projects/vim/plugins/vimpeg-parser-viml/test/test_00_Expr_1.out" 
-<im/plugins/vimpeg-parser-viml/test/test_00_Expr_1.out" [New] 12L, 24C [w]
+"test_00_expr1_1.out" 
+"test_00_expr1_1.out" [New] 12L, 24C [w]
