@@ -13,3 +13,4 @@ exe "edit " . testname . '.in'
 exe "%s/.*/\\=string(g:viml#parser.GetSym(testexpr).match(submatch(0))['is_matched'])/"
 exe "write " . testname . ".out"
 quit!
+" vim: set ft=vim:
