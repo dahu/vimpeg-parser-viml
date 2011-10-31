@@ -1,9 +1,6 @@
 
-testname: test_00_expr1_1
-testexpr: expr1
 "test_00_expr1_1.in" 
 "test_00_expr1_1.in" 12L, 111C
-%s/.*/\=string(g:viml#parser.GetSym(testexpr).match(submatch(0))['is_matched'])/
 peg.Expression: {'str': '1', 'pos': 0} '!'
 peg.Expression: {'str': '1', 'pos': 0} '-'
 peg.Expression: {'str': '1', 'pos': 0} '+'
