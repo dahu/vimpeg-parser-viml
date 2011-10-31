@@ -1,0 +1,12 @@
+1
+"dqstring"
+'sqstring'
+&verbose
+$SHELL
+@a
+[1, 2, 3]
+{'a': 1, 'b': "x"}
+(1)
+(1 + 1)
+somelist[0]
+somelist[0][0]
