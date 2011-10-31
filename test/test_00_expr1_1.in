@@ -8,5 +8,6 @@ $SHELL
 {'a': 1, 'b': "x"}
 (1)
 (1 + 1)
+(2 / 1)
 somelist[0]
 somelist[0][0]
