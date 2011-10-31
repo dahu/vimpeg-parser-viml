@@ -1,0 +1,9 @@
+*.sw?
+*.un?
+*.vba
+*.zip
+*.gz
+vimball.txt
+*.orig
+tags
+test/_setup.vim
