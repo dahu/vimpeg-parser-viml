@@ -8,3 +8,4 @@ vimball.txt
 tags
 test/_setup.vim
 test/*.msgout
+test/*.out
