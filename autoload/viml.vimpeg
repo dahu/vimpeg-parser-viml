@@ -35,7 +35,7 @@ sqstr           ::=  "'" ("''" | !"'" '.')* "'"
 dqstr           ::=  '"' ( '\\\\' | '\\"' | !'"' '.')* '"'
 string          ::=  sqstr | dqstr
 list            ::=  '\[' exprlist '\]'
-exprlist        ::=  expr1? (',' expr1)*
+exprlist        ::=  expr1? (',' expr1)* ','?
 dict            ::=  '{' (dictpair (',' dictpair)*)? '}'
 dictpair        ::=  expr1 ':' expr1
 

@@ -9,5 +9,5 @@ $SHELL
 (1)
 (1 + 1)
 (2 / 1)
-somelist[0]
-somelist[0][0]
+"(delayed until expr9 added to expr8) somelist[0]
+"(delayed until expr9 added to expr8) somelist[0][0]
