@@ -1,1 +1,1 @@
-test_driver.vim
+./test_driver
