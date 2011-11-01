@@ -7,6 +7,7 @@
 "project-specific lines (the source and the reference to g:<proj>#parser)
 
 function! Tester(testexpr, expr)
+  echo 'Line: '.printf('%3d',line('.')).' - Symbol: '.a:testexpr.', test: '.a:expr
   let result = g:viml#parser.GetSym(a:testexpr).match(a:expr)
   if (result['is_matched'] == 0) && (type(result['errmsg']) == type('')) && result['errmsg'] != ''
     echo result['errmsg'] . '-->' . a:expr . '<--'
