@@ -13,13 +13,15 @@ expr3           ::=  expr4 ('&&' expr3)?
 expr4           ::=  expr5 (isoreqop expr4)?
 expr5           ::=  expr6 (addop expr5)?
 expr6           ::=  expr7 (mulop expr6)?
-expr7           ::=  unop* expr8
-expr8           ::=  number | string | optval | envvar | regval | list | dict | nestedexpr
+expr7           ::=  unop* expr8 | expr9
+expr8           ::=  number | string | optval | envvar | regval | nestedexpr
 ; NOTE:   expr9   removed from tail of expr8 for testing purposes
 ; Need to fix expr9 and expr10 - too liberal
-expr9           ::=  (funccall | ident)? expr10*
-;expr10          ::=  (listref | ((ident | funccall) ('\.' expr9)))*
-expr10          ::=  (listref | ('\.' (funccall | ident)))
+; Had to excise   list | dict   from expr8
+expr9           ::=  list | dict
+;expr9           ::=  (funccall | ident)? expr10*
+;;expr10          ::=  (listref | ((ident | funccall) ('\.' expr9)))*
+;expr10          ::=  (listref | ('\.' (funccall | ident)))
 listref         ::=  '\[' exprange '\]'
 
 eqop            ::=  '==?' | '!=?' | '>=?' | '>?' | '<=?' | '<?' | '=\~?' | '!\~?' | '==#' | '!=#' | '>=#' | '>#' | '<=#' | '<#' | '=\~#' | '!\~#' | '==' | '!=' | '>=' | '>' | '<=' | '<' | '=\~' | '!\~'
