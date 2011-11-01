@@ -6,11 +6,23 @@
 "NOTE to Raimondi: We could generate this file later - there are only two
 "project-specific lines (the source and the reference to g:<proj>#parser)
 
+function! Tester(testexpr, expr)
+  let result = g:viml#parser.GetSym(a:testexpr).match(a:expr)
+  if (result['is_matched'] == 0) && (type(result['errmsg']) == type('')) && result['errmsg'] != ''
+    echo result['errmsg'] . '-->' . a:expr . '<--'
+    return 0
+  endif
+  if result['is_matched'] == 1
+    return result['pos'] == len(a:expr)
+  endif
+endfunction
+
 source ../autoload/viml.vim
 let testname = expand('<sfile>:p:t:r')
 let testexpr = matchstr(testname, '^test_\d\+_\zs[^_]\+')
 exe "edit " . testname . '.in'
-exe "%s/.*/\\=string(g:viml#parser.GetSym(testexpr).match(submatch(0))['is_matched'])/"
+"exe "%s/.*/\\=string(g:viml#parser.GetSym(testexpr).match(submatch(0))['is_matched'])/"
+exe "%s/.*/\\=Tester(testexpr, submatch(0))/"
 exe "write " . testname . ".out"
 quit!
 " vim: set ft=vim:
