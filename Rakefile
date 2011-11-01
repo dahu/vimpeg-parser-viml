@@ -1,5 +1,5 @@
 task :default => :test
 
 task :test do |t|
-  sh "~/.vim/bin/runVimTests.sh test/test_[0-9]*.vim"
+  sh "runVimTests.sh test"
 end
