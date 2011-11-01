@@ -7,3 +7,4 @@ vimball.txt
 *.orig
 tags
 test/_setup.vim
+test/*.msgout
