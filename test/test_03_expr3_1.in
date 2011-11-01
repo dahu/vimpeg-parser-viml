@@ -1,0 +1,11 @@
+1 && 2
+'one' && 'two'
+"one" && "two"
+1 && 2 && 3
+1 && 2 && 3 && 4
+[1, 2, 3] && [1, 2, 3]
+"(delayed until expr9 added to expr8) somevar && [1, 2, 3]
+"(delayed until expr9 added to expr8) somevar && {'a' : 1, 'b': 2}
+1 && && 2
+&& 2
+1 | 2
