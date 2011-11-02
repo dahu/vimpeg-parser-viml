@@ -2,7 +2,8 @@
  ' 123 345'
 'abcd'' efg'
 'ghi\\'
-'xy\n'
+'xy\x'
+'xy\\n'
 'klmn\\\''
 'opqr''
 'wxy
