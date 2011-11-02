@@ -25,7 +25,7 @@ let testname = expand('<sfile>:p:t:r')
 let testexpr = matchstr(testname, '^test_\d\+_\zs[^_]\+')
 exe "edit " . testname . '.in'
 "exe "%s/.*/\\=string(g:viml#parser.GetSym(testexpr).match(submatch(0))['is_matched'])/"
-exe "%s/.*/\\=Tester(testexpr, submatch(0))/"
+exe '%s/.*/\=Tester(testexpr, submatch(0))." ".submatch(0)/'
 exe "write " . testname . ".out"
 quit!
 " vim: set ft=vim:

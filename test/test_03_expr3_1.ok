@@ -1,11 +1,11 @@
-1
-1
-1
-1
-1
-1
-1
-1
-0
-0
-0
+1 1 && 2
+1 'one' && 'two'
+1 "one" && "two"
+1 1 && 2 && 3
+1 1 && 2 && 3 && 4
+1 [1, 2, 3] && [1, 2, 3]
+1 "(delayed until expr9 added to expr8) somevar && [1, 2, 3]
+1 "(delayed until expr9 added to expr8) somevar && {'a' : 1, 'b': 2}
+0 1 && && 2
+0 && 2
+0 1 | 2
