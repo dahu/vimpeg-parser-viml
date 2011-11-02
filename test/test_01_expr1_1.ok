@@ -1,2 +1,1 @@
-1 1 ? 2 : 3
-1 (1 + 2 * 3 / 4 % 5) || 'hello' && 'there' ? 'yes' : 'no'
+test_01_expr1_1.in

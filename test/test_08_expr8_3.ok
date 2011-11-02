@@ -1,9 +1,1 @@
-1 'abc efg'
-1  ' 123 345'
-1 'abcd'' efg'
-1 'ghi\\'
-1 'xy\x'
-1 'xy\\n'
-0 'klmn\\\''
-0 'opqr''
-0 'wxy
+test_08_expr8_3.in

@@ -1,8 +1,8 @@
-"abc efg"
- " 123 345"
-"abcd\" efg"
-"ghi\\"
-"klmn\\\""
-"xy\n"
-"opqr\"
-"wxy
+1 "abc efg"
+1  " 123 345"
+1 "abcd\" efg"
+1 "ghi\\"
+1 "klmn\\\""
+1 "xy\n"
+0 "opqr\"
+0 "wxy
