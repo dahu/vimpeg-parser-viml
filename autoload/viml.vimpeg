@@ -13,16 +13,7 @@ expr3           ::=  expr4 ('&&' expr3)?
 expr4           ::=  expr5 (isoreqop expr4)?
 expr5           ::=  expr6 (addop expr5)?
 expr6           ::=  expr7 (mulop expr6)?
-expr7           ::=  unop* expr8 | expr9
-expr8           ::=  number | string | optval | envvar | regval | nestedexpr
-; NOTE:   expr9   removed from tail of expr8 for testing purposes
-; Need to fix expr9 and expr10 - too liberal
-; Had to excise   list | dict   from expr8
-expr9           ::=  list | dict
-;expr9           ::=  (funccall | ident)? expr10*
-;;expr10          ::=  (listref | ((ident | funccall) ('\.' expr9)))*
-;expr10          ::=  (listref | ('\.' (funccall | ident)))
-listref         ::=  '\[' exprange '\]'
+expr7           ::=  unop* expr8
 
 eqop            ::=  '==?' | '!=?' | '>=?' | '>?' | '<=?' | '<?' | '=\~?' | '!\~?' | '==#' | '!=#' | '>=#' | '>#' | '<=#' | '<#' | '=\~#' | '!\~#' | '==' | '!=' | '>=' | '>' | '<=' | '<' | '=\~' | '!\~'
 isop            ::=  'isnot' | 'is'
@@ -30,14 +21,25 @@ isoreqop        ::=  isop | eqop
 addop           ::=  '+' | '-' | '\.'
 mulop           ::=  '\*' | '/' | '%'
 unop            ::=  '!' | '-' | '+'
+
+expr8           ::=  expr9 (listref | dictref | funcrefcall)*
+expr9           ::=  number | string | list | dict | optval | envvar | regval | nestedexpr | funccall | ident
+
+listref         ::=  '\[' exprange '\]'
+dictref         ::=  '\.' name
+funcrefcall     ::=  '(' exprlist ')'
+
 exprange        ::=  expr1 (':' expr1)?
 
 number          ::=  '[-+]\?\d*\.\?\d\+\%([eE][-+]\?\d\+\)\?'
+
 sqstr           ::=  "'" ("''" | !"'" '.')* "'"
 dqstr           ::=  '"' ( '\\\\' | '\\"' | !'"' '.')* '"'
 string          ::=  sqstr | dqstr
+
 list            ::=  '\[' exprlist '\]'
 exprlist        ::=  expr1? (',' expr1)* ','?
+
 dict            ::=  '{' (dictpair (',' dictpair)*)? '}'
 dictpair        ::=  expr1 ':' expr1
 
@@ -48,7 +50,9 @@ nestedexpr      ::=  '(' expr1 ')'
 bareident       ::=  '\h\w*'
 bracedident     ::=  ident? '{' ident '}\w*'
 ident           ::=  bareident | bracedident
-envvar          ::=  '$[A-Z]\+'
+
+envvar          ::=  '\$\w\+'
+
 regval          ::=  '@[a-z0-9_/.+*"'']'
 
 namespace       ::=  '\h\w\+#'
@@ -57,3 +61,13 @@ bracedfuncident ::=  funcident? '{' ident '}\w*'
 barefunccall    ::=  funcident '(' exprlist ')'
 bracedfunccall  ::=  bracedfuncident '(' exprlist ')'
 funccall        ::=  barefunccall | bracedfunccall
+
+
+
+; NOTE:   expr9   removed from tail of expr8 for testing purposes
+; Need to fix expr9 and expr10 - too liberal
+; Had to excise   list | dict   from expr8
+; expr9           ::=  list | dict
+; expr9           ::=  (funccall | ident)? expr10*
+; expr10          ::=  (listref | ((ident | funccall) ('\.' expr9)))*
+; expr10          ::=  (listref | ('\.' (funccall | ident)))
