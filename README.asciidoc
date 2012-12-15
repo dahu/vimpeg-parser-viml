@@ -3,7 +3,7 @@ VimPEG Parser for VimL
 
 Vimpeg Parser for the VimL (vimscript) language.
 
-Status
-~~~~~~
+**Status:** Basic functionality implemented. Probably massively
+deficient.
 
-Incomplete. Needs List and Dict
+Needs more tests.
