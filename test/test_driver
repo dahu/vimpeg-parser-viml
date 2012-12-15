@@ -9,6 +9,7 @@
 function! Tester(testexpr, expr)
   echo 'Line: '.printf('%3d',line('.')).' - Symbol: '.a:testexpr.', test: '.a:expr
   let result = g:viml#parser.GetSym(a:testexpr).match(a:expr)
+  "echo resul t
   if (result['is_matched'] == 0) && (type(result['errmsg']) == type('')) && result['errmsg'] != ''
     echo result['errmsg'] . '-->' . a:expr . '<--'
     return 0

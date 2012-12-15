@@ -25,11 +25,14 @@ unop            ::=  '!' | '-' | '+'
 expr8           ::=  expr9 (listref | dictref | funcrefcall)*
 expr9           ::=  number | string | list | dict | optval | envvar | regval | nestedexpr | funccall | ident
 
+; need to add commit stamps to our PEG syntax to prevent rollback past known points
 listref         ::=  '\[' exprange '\]'
-dictref         ::=  '\.' name
+dictref         ::=  '\w\@<=\.' ident
 funcrefcall     ::=  '(' exprlist ')'
 
 exprange        ::=  expr1 (':' expr1)?
+
+numorstr        ::= number | string
 
 number          ::=  '[-+]\?\d*\.\?\d\+\%([eE][-+]\?\d\+\)\?'
 
@@ -37,8 +40,9 @@ sqstr           ::=  "'" ("''" | !"'" '.')* "'"
 dqstr           ::=  '"' ( '\\\\' | '\\"' | !'"' '.')* '"'
 string          ::=  sqstr | dqstr
 
-list            ::=  '\[' exprlist '\]'
-exprlist        ::=  expr1? (',' expr1)* ','?
+list            ::=  '\[\s*\]' | '\[' exprlist '\]'
+; viml allows a single empty trailing "," in an exprlist
+exprlist        ::=  expr1? (',\(\s*\]\)\@!' expr1)* ','?
 
 dict            ::=  '{' (dictpair (',' dictpair)*)? '}'
 dictpair        ::=  expr1 ':' expr1
@@ -58,16 +62,7 @@ regval          ::=  '@[a-z0-9_/.+*"'']'
 namespace       ::=  '\h\w\+#'
 funcident       ::=  '\%([bstw]:\)\?\w\+' | namespace '\w\+'
 bracedfuncident ::=  funcident? '{' ident '}\w*'
-barefunccall    ::=  funcident '(' exprlist ')'
+barefunccall    ::=  funcident ('(\s*)' | ('(' exprlist ')'))
 bracedfunccall  ::=  bracedfuncident '(' exprlist ')'
 funccall        ::=  barefunccall | bracedfunccall
 
-
-
-; NOTE:   expr9   removed from tail of expr8 for testing purposes
-; Need to fix expr9 and expr10 - too liberal
-; Had to excise   list | dict   from expr8
-; expr9           ::=  list | dict
-; expr9           ::=  (funccall | ident)? expr10*
-; expr10          ::=  (listref | ((ident | funccall) ('\.' expr9)))*
-; expr10          ::=  (listref | ('\.' (funccall | ident)))

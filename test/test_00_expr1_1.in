@@ -9,5 +9,6 @@
 1 (1)
 1 (1 + 1)
 1 (2 / 1)
-1 "(delayed until expr9 added to expr8) somelist[0]
-1 "(delayed until expr9 added to expr8) somelist[0][0]
+1 somelist[0]
+1 somelist[0][0]
+1 somedict.item
