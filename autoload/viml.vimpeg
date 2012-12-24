@@ -13,7 +13,7 @@ expr3           ::=  expr4 ('&&' expr3)?
 expr4           ::=  expr5 (isoreqop expr4)?
 expr5           ::=  expr6 (addop expr5)?
 expr6           ::=  expr7 (mulop expr6)?
-expr7           ::=  unop* expr8
+expr7           ::=  unop* ! '\[' expr8
 
 eqop            ::=  '==?' | '!=?' | '>=?' | '>?' | '<=?' | '<?' | '=\~?' | '!\~?' | '==#' | '!=#' | '>=#' | '>#' | '<=#' | '<#' | '=\~#' | '!\~#' | '==' | '!=' | '>=' | '>' | '<=' | '<' | '=\~' | '!\~'
 isop            ::=  'isnot' | 'is'
@@ -30,7 +30,8 @@ listref         ::=  '\[' exprange '\]'
 dictref         ::=  '\w\@<=\.' ident
 funcrefcall     ::=  '(' exprlist ')'
 
-exprange        ::=  expr1 (':' expr1)?
+;exprange        ::=  expr1 (':' expr1)?
+exprange        ::=  (expr1? ':' expr1?) | expr1
 
 numorstr        ::= number | string
 
@@ -52,8 +53,8 @@ optval          ::=  '&\w\+'
 nestedexpr      ::=  '(' expr1 ')'
 
 bareident       ::=  '\h\w*'
-bracedident     ::=  ident? '{' ident '}\w*'
-ident           ::=  bareident | bracedident
+bracedident     ::=  '{' ((& '{' bracedident) | (! '}' '.'))+ '}'
+ident           ::=  ((bracedident | bareident) ! '\s')+
 
 envvar          ::=  '\$\w\+'
 

@@ -1,0 +1,10 @@
+1 x
+1 abc
+1 abc{x}
+1 abc{xyz}ijk
+1 {xyz}abc
+1 {xyz}
+1 abc{x{y{z}}}
+1 abc{x{y{z}}}ijk
+1 abc{x{y{z}l}m}ijk
+0 abc{{xz}}ijk
