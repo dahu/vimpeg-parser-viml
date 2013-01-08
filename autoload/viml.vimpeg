@@ -6,14 +6,14 @@
 .parser_name = 'viml#parser'
 .root_element = 'viml'
 
-viml            ::=  expr1
+viml            ::=  expr1 eof
 expr1           ::=  expr2 ('?' expr1 ':' expr1)?
 expr2           ::=  expr3 ('||' expr2)?
 expr3           ::=  expr4 ('&&' expr3)?
 expr4           ::=  expr5 (isoreqop expr4)?
 expr5           ::=  expr6 (addop expr5)?
 expr6           ::=  expr7 (mulop expr6)?
-expr7           ::=  unop* ! '\[' expr8
+expr7           ::=  (unop+ ! '\[' expr8) | expr8
 
 eqop            ::=  '==?' | '!=?' | '>=?' | '>?' | '<=?' | '<?' | '=\~?' | '!\~?' | '==#' | '!=#' | '>=#' | '>#' | '<=#' | '<#' | '=\~#' | '!\~#' | '==' | '!=' | '>=' | '>' | '<=' | '<' | '=\~' | '!\~'
 isop            ::=  'isnot' | 'is'
@@ -27,7 +27,9 @@ expr9           ::=  number | string | list | dict | optval | envvar | regval | 
 
 ; need to add commit stamps to our PEG syntax to prevent rollback past known points
 listref         ::=  '\[' exprange '\]'
-dictref         ::=  '\w\@<=\.' ident
+;; the parser doesn't have enough info to use lookbehind here
+;dictref         ::=  '\w\@<=\.' ident
+dictref         ::=  '\.' ident
 funcrefcall     ::=  '(' exprlist ')'
 
 ;exprange        ::=  expr1 (':' expr1)?
@@ -53,8 +55,9 @@ optval          ::=  '&\w\+'
 nestedexpr      ::=  '(' expr1 ')'
 
 bareident       ::=  '\h\w*'
-bracedident     ::=  '{' ((& '{' bracedident) | (! '}' '.'))+ '}'
-ident           ::=  ((bracedident | bareident) ! '\s')+
+bracedident     ::=  '{' ((& '{' bracedident) | (! '}' '\w'))+ '}'
+scope           ::= '[abglstvw]:'?
+ident           ::=  scope? (bracedident bareident? | bareident) (&'{' bracedident bareident?)*
 
 envvar          ::=  '\$\w\+'
 
@@ -67,3 +70,5 @@ barefunccall    ::=  funcident ('(\s*)' | ('(' exprlist ')'))
 bracedfunccall  ::=  bracedfuncident '(' exprlist ')'
 funccall        ::=  barefunccall | bracedfunccall
 
+eof             ::= !'.'
+;eof             ::= '\%$'

@@ -7,4 +7,4 @@
 1 abc{x{y{z}}}
 1 abc{x{y{z}}}ijk
 1 abc{x{y{z}l}m}ijk
-0 abc{{xz}}ijk
+1 abc{{xz}}ijk
