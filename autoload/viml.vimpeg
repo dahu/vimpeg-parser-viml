@@ -6,7 +6,7 @@
 .parser_name = 'viml#parser'
 .root_element = 'viml'
 
-viml            ::=  expr1 eof
+viml            ::=  expr1
 expr1           ::=  expr2 ('?' expr1 ':' expr1)?
 expr2           ::=  expr3 ('||' expr2)?
 expr3           ::=  expr4 ('&&' expr3)?
@@ -27,12 +27,9 @@ expr9           ::=  number | string | list | dict | optval | envvar | regval | 
 
 ; need to add commit stamps to our PEG syntax to prevent rollback past known points
 listref         ::=  '\[' exprange '\]'
-;; the parser doesn't have enough info to use lookbehind here
-;dictref         ::=  '\w\@<=\.' ident
 dictref         ::=  '\.' ident
 funcrefcall     ::=  '(' exprlist ')'
 
-;exprange        ::=  expr1 (':' expr1)?
 exprange        ::=  (expr1? ':' expr1?) | expr1
 
 numorstr        ::= number | string
@@ -69,6 +66,3 @@ bracedfuncident ::=  funcident? '{' ident '}\w*'
 barefunccall    ::=  funcident ('(\s*)' | ('(' exprlist ')'))
 bracedfunccall  ::=  bracedfuncident '(' exprlist ')'
 funccall        ::=  barefunccall | bracedfunccall
-
-eof             ::= !'.'
-;eof             ::= '\%$'
