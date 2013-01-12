@@ -1,6 +1,9 @@
 1 1
 1 "dqstring"
+1 "dqstring" . "dqstring"
 1 'sqstring'
+1 'sqstring' . 'sqstring'
+1 'sqstring' . "dqstring"
 1 &verbose
 1 $SHELL
 1 @a
@@ -13,4 +16,6 @@
 1 somelist[0][0]
 1 somedict.item
 1 g:var
+1 1 is 1
+1 1 isnot 1
 0 foo bar
